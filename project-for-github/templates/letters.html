@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Новогодние Планы</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Kalam:wght@400;700&family=Indie+Flower&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/letters.css') }}?v=4">
+</head>
+<body class="letters-page">
+    <!-- Верхняя панель с циферблатом -->
+    <div class="top-panel">
+        <div class="top-panel-left">
+            <button class="btn-mailbox" id="btn-mailbox" onclick="goToMailbox()">📮 Почтовый ящик</button>
+        </div>
+        <div class="clock-display" id="clock-display">
+            <div class="clock-date" id="clock-date">31.12</div>
+            <div class="clock-time" id="clock-time">14:30</div>
+        </div>
+        <div class="top-panel-right">
+            <button class="btn-inspect" id="btn-inspect" onclick="toggleInspectionMode()">🔍 Осмотр желаний</button>
+        </div>
+    </div>
+
+    <!-- Основная область -->
+    <div class="main-container">
+        <!-- Шкала времени слева -->
+        <div class="time-scale-container">
+            <div class="time-scale" id="time-scale">
+                <!-- Серые метки и ползунок будут добавлены через JavaScript -->
+                <div class="time-scale-slider" id="time-scale-slider"></div>
+            </div>
+        </div>
+
+        <!-- Область со столом и письмами -->
+        <div class="table-container" id="table-container">
+            <div class="table-surface" id="table-surface">
+                <!-- Письма будут добавлены через JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно с деталями письма -->
+    <div class="letter-modal" id="letter-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeLetterModal()">×</button>
+            <div class="modal-seal"></div>
+            <div class="modal-header">
+                <div class="modal-image" id="modal-image">📄</div>
+                <div class="modal-title" id="modal-title"></div>
+            </div>
+            <div class="modal-details">
+                <div class="detail-row">
+                    <span class="detail-label">Дата:</span>
+                    <span class="detail-value" id="modal-date"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Начало:</span>
+                    <span class="detail-value" id="modal-start"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Продолжительность:</span>
+                    <span class="detail-value" id="modal-duration"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Окончание:</span>
+                    <span class="detail-value" id="modal-end"></span>
+                </div>
+                <div class="detail-description" id="modal-description"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно ожидания (для специального письма почтового ящика) -->
+    <div class="waiting-modal" id="waiting-modal">
+        <div class="waiting-modal-content">
+            <button class="modal-close" onclick="closeWaitingModal()">×</button>
+            <div class="waiting-modal-text">Пока что еще писем нет, загляните 31 декабря</div>
+            <div class="waiting-modal-emoji">⏳⏳⏳</div>
+        </div>
+    </div>
+
+    <!-- Модальное окно подарка (для специального письма подарка) -->
+    <div class="gift-modal" id="gift-modal">
+        <div class="gift-modal-content">
+            <button class="modal-close" onclick="closeGiftModal()">×</button>
+            <div class="gift-modal-emoji">🎁🎁🎁🎁🎁🎁🎁🎁🎁🎁</div>
+            <div class="gift-modal-text">Беги открывай свой!!!</div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/letters.js') }}?v=2"></script>
+    <script>
+        // Экспорт функций для модальных окон
+        window.closeWaitingModal = function() {
+            const modal = document.getElementById('waiting-modal');
+            if (modal) modal.classList.remove('active');
+        };
+        window.closeGiftModal = function() {
+            const modal = document.getElementById('gift-modal');
+            if (modal) modal.classList.remove('active');
+        };
+        
+        // Закрытие модальных окон при клике вне их
+        document.getElementById('waiting-modal')?.addEventListener('click', function(e) {
+            if (e.target === this) window.closeWaitingModal();
+        });
+        document.getElementById('gift-modal')?.addEventListener('click', function(e) {
+            if (e.target === this) window.closeGiftModal();
+        });
+    </script>
+</body>
+</html>
+

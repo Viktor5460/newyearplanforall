@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Новогодние Планы</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/letters.css') }}">
+</head>
+<body class="mailbox-page">
+    <div class="mailbox-container">
+        <div class="mailbox" id="mailbox">
+            <div class="mailbox-door" id="mailbox-door">
+                <div class="mailbox-slot"></div>
+            </div>
+            <div class="mailbox-body">
+                <div class="mailbox-lock"></div>
+                <div class="mailbox-label">📮</div>
+            </div>
+        </div>
+        <div class="mailbox-text">
+            <h1>Новогодние Планы</h1>
+        </div>
+        <div class="mailbox-buttons">
+            <button class="btn-what-is-this" onclick="showWhatIsThis()">Что это такое</button>
+            <button class="btn-dacha" onclick="window.open('https://newyearplan.onrender.com/', '_blank')">Дачная Суета!</button>
+            <div class="newyear-emoji" onclick="showEasterEgg()">🎄</div>
+        </div>
+    </div>
+
+    <!-- Модальное окно "Что это такое" -->
+    <div class="what-is-this-modal" id="what-is-this-modal">
+        <div class="what-is-this-content">
+            <button class="modal-close" onclick="closeWhatIsThis()">×</button>
+            <h2>Новогодние Планы</h2>
+            <div class="what-is-this-description">
+                <p>Это интерактивное расписание новогодних событий в виде писем в почтовом ящике.</p>
+                <p><strong>Основные функции:</strong></p>
+                <ul>
+                    <li>📮 <strong>Письма</strong> - каждое событие представлено как письмо, расположенное на временной шкале</li>
+                    <li>⏰ <strong>Временная шкала</strong> - письма расположены по времени начала события</li>
+                    <li>🔍 <strong>Осмотр желаний</strong> - режим просмотра всех событий в виде списка</li>
+                    <li>📌 <strong>Интерактивность</strong> - кликните на любое письмо, чтобы узнать детали события</li>
+                </ul>
+                <p>Письма автоматически поворачиваются и располагаются рядом, если их временные интервалы пересекаются.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно пасхалки -->
+    <div class="easter-egg-modal" id="easter-egg-modal">
+        <div class="easter-egg-content">
+            <button class="easter-egg-close" onclick="closeEasterEgg()">×</button>
+            <div class="easter-egg-emoji">🎄🎉🎊🎁🎅❄️⛄🔔🎈🎀</div>
+            <div class="easter-egg-text">Пасхалка найдена</div>
+            <div class="easter-egg-emoji">🎉🎊🎉🎊🎉🎊</div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('mailbox').addEventListener('click', function() {
+            window.location.href = '/letters';
+        });
+
+        function showWhatIsThis() {
+            document.getElementById('what-is-this-modal').classList.add('active');
+        }
+
+        function closeWhatIsThis() {
+            document.getElementById('what-is-this-modal').classList.remove('active');
+        }
+
+        function showEasterEgg() {
+            document.getElementById('easter-egg-modal').classList.add('active');
+        }
+
+        function closeEasterEgg() {
+            document.getElementById('easter-egg-modal').classList.remove('active');
+        }
+
+        // Закрытие при клике вне модального окна
+        document.getElementById('what-is-this-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeWhatIsThis();
+            }
+        });
+
+        document.getElementById('easter-egg-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEasterEgg();
+            }
+        });
+    </script>
+</body>
+</html>
+
